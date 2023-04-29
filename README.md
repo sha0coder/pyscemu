@@ -1,6 +1,9 @@
 # PYSCEMU
 
 ## Install
+pip install --upgrade pip
+pip3 install --upgrade pip
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 pip install pyscemu
 
 
@@ -9,6 +12,7 @@ download maps32 from releases or maps64 better from git:
 https://github.com/sha0coder/scemu
 
 releases:
+
 https://github.com/sha0coder/scemu/releases/download/maps/maps32.zip
 https://github.com/sha0coder/scemu/releases/download/maps/maps64.zip
 
@@ -214,6 +218,7 @@ True
 
 ```python
 >>> emu.spawn_console_at_pos(6)
+>>> emu.set_verbose(3)
 >>> emu.run(0)
 shellcode detected.
 1 0x3c8b97: push  ebp ;0x22f000 
