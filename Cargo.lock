@@ -688,7 +688,7 @@ dependencies = [
 
 [[package]]
 name = "pyscemu"
-version = "0.1.2"
+version = "0.1.4"
 dependencies = [
  "libscemu",
  "pyo3",

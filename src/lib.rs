@@ -14,6 +14,11 @@ struct Emu {
 #[pymethods]
 impl Emu {
 
+    /// get pyscemu version
+    fn version(&self) -> String {
+        return env!("CARGO_PKG_VERSION").to_string();
+    }
+
     /// reset the instruction counter to zero.
     fn reset_pos(&mut self) {
         self.emu.pos = 0;
@@ -703,6 +708,60 @@ impl Emu {
     pub fn mem_test(&self) -> PyResult<bool> {
         return Ok(self.emu.maps.mem_test());
     }
+
+    /// breakpoints
+
+    /// show breakpoints
+    pub fn bp_show(&self) {
+        self.emu.bp.show();
+    }
+
+    /// clear all the breakpoints
+    pub fn bp_clear_all(&mut self) {
+        self.emu.bp.clear_bp();
+    }
+
+    /// set breakpoint on an address
+    pub fn bp_set_addr(&mut self, addr:u64) {
+        self.emu.bp.set_bp(addr);
+    }
+
+    /// get the current address breakpoint
+    pub fn bp_get_addr(&self) -> PyResult<u64> {
+        return Ok(self.emu.bp.get_bp());
+    }
+
+    /// set breakpoint on a instruction counter
+    pub fn bp_set_inst(&mut self, ins:u64) {
+        self.emu.bp.set_instruction(ins);
+    }
+
+    /// get breakpoint on a instrunction counter
+    pub fn bp_get_inst(&self) -> PyResult<u64> {
+        return Ok(self.emu.bp.get_instruction());
+    }
+
+    /// set a memory breakpoint on read
+    pub fn bp_set_mem_read(&mut self, addr:u64) {
+        self.emu.bp.set_mem_read(addr);
+    }
+
+    /// get the memory breakpoint on read
+    pub fn bp_get_mem_read(&self) -> PyResult<u64> {
+        return Ok(self.emu.bp.get_mem_read());
+    }
+
+    /// set a memory breakpoint on write
+    pub fn bp_set_mem_write(&mut self, addr:u64) {
+        self.emu.bp.set_mem_write(addr);
+    }
+
+    /// get the memory breakpoint on write
+    pub fn bp_get_mem_write(&self) -> PyResult<u64> {
+        return Ok(self.emu.bp.get_mem_write());
+    }
+
+
 
 }
 

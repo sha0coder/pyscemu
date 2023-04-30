@@ -23,11 +23,10 @@ while True:
         break
 
     opcode = emu.read_byte(emu.get_reg('eip'))
-    print(hex(opcode))
-    if opcode == 0x59:    
-        decrypted_ptr = emu.get_reg('ecx')
+    if opcode == 0x6a:    
+        decrypted_ptr = emu.get_reg('eax')
         decrypted = emu.read_string(decrypted_ptr)
-        strings.append(decrypted)
+        strings.append(f'{hex(decrypted_ptr)}: {decrypted}')
 
 
 for s in list(set(strings)):
