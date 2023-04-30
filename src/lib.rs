@@ -490,8 +490,8 @@ impl Emu {
 
 
     /// read a byte from a memory address.
-    fn read_byte(&self, addr:u64) -> PyResult<u16> {
-        match self.emu.maps.read_word(addr) {
+    fn read_byte(&self, addr:u64) -> PyResult<u8> {
+        match self.emu.maps.read_byte(addr) {
             Some(v) => return Ok(v),
             None => {
                 return Err(PyValueError::new_err("reading on non allocated address"));
