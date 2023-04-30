@@ -1,11 +1,18 @@
 # PYSCEMU
 
 ## Install
+```bash
 pip install --upgrade pip
 pip3 install --upgrade pip
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 pip install pyscemu
+```
 
+## Mac Install
+same procedure, if there is a problem with !tapi-tbd the solution is:
+```bash
+sudo xcode-select --switch /Library/Developer/CommandLineTools
+```
 
 ## Download maps
 download maps32 from releases or maps64 better from git:
