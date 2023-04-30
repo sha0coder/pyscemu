@@ -5,18 +5,22 @@ use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
 
 
-
 #[pyclass]
-struct Emu {
+pub struct Emu {
     emu: libscemu::emu::Emu,
 }
 
 #[pymethods]
+#[allow(deprecated)]
 impl Emu {
 
     /// get pyscemu version
     fn version(&self) -> String {
         return env!("CARGO_PKG_VERSION").to_string();
+    }
+
+    fn get_prev_mnemonic(&self) -> PyResult<String> {
+        return Ok(self.emu.out.clone());
     }
 
     /// reset the instruction counter to zero.
@@ -761,8 +765,36 @@ impl Emu {
         return Ok(self.emu.bp.get_mem_write());
     }
 
+    // hooks
+
+    /// use a synchronous loop with step() instead of using the run_hook(hook) 
+    /// this method is experimental.
+    pub fn run_hook(&mut self, callback: PyObject) {
+        loop {
+            self.emu.step();
+
+            let gil = Python::acquire_gil();
+            let py = gil.python();
 
 
+            let args = (self.emu.regs.rip, &self.emu.out,);
+            match callback.call1(py, args) {
+                Ok(r) => {
+                    match r.extract::<bool>(py) {
+                        Ok(b) => {
+                            if b {
+                                continue;
+                            } else {
+                                break;
+                            }
+                        }
+                        Err(_) => break,
+                    }
+                },
+                Err(_) => break,
+            }
+        }
+    }
 }
 
 
@@ -771,7 +803,9 @@ impl Emu {
 
 #[pyfunction]
 fn init32() -> PyResult<Emu> {
-    let mut emu = Emu{emu: emu32()};
+    let mut emu = Emu{
+        emu: emu32(), 
+    };
     emu.emu.cfg.is_64bits = false;
     emu.emu.cfg.console_enabled = false;
     emu.emu.cfg.verbose = 0;
@@ -783,7 +817,9 @@ fn init32() -> PyResult<Emu> {
 
 #[pyfunction]
 fn init64() -> PyResult<Emu> {
-    let mut emu = Emu{emu: emu64()};
+    let mut emu = Emu{
+        emu: emu64(), 
+    };
     emu.emu.cfg.is_64bits = true;
     emu.emu.cfg.console_enabled = false;
     emu.emu.cfg.verbose = 0;

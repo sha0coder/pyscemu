@@ -23,6 +23,10 @@ releases:
 https://github.com/sha0coder/scemu/releases/download/maps/maps32.zip
 https://github.com/sha0coder/scemu/releases/download/maps/maps64.zip
 
+## Examples
+
+https://github.com/sha0coder/pyscemu/tree/main/examples
+
 ## Usage
 
 ### Fully emulation of a shellcode
