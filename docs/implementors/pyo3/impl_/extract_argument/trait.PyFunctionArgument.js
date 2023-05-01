@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"pyscemu":[["impl&lt;'a, 'py&gt; PyFunctionArgument&lt;'a, 'py&gt; for &amp;'a <a class=\"struct\" href=\"pyscemu/struct.Emu.html\" title=\"struct pyscemu::Emu\">Emu</a>"],["impl&lt;'a, 'py&gt; PyFunctionArgument&lt;'a, 'py&gt; for &amp;'a mut <a class=\"struct\" href=\"pyscemu/struct.Emu.html\" title=\"struct pyscemu::Emu\">Emu</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

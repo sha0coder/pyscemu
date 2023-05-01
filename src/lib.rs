@@ -14,11 +14,12 @@ pub struct Emu {
 #[allow(deprecated)]
 impl Emu {
 
-    /// get pyscemu version
+    /// get pyscemu version.
     fn version(&self) -> String {
         return env!("CARGO_PKG_VERSION").to_string();
     }
 
+    /// get last emulated mnemonic with name and parameters.
     fn get_prev_mnemonic(&self) -> PyResult<String> {
         return Ok(self.emu.out.clone());
     }
