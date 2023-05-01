@@ -27,6 +27,10 @@ https://github.com/sha0coder/scemu/releases/download/maps/maps64.zip
 
 https://github.com/sha0coder/pyscemu/tree/main/examples
 
+## Documentation
+
+https://github.com/sha0coder/pyscemu/blob/main/DOCUMENTATION.md
+
 ## Usage
 
 ### Fully emulation of a shellcode
