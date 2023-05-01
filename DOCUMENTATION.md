@@ -372,6 +372,9 @@ bp_set_mem_read(addr:int)
     # get the memory breakpoint on read
 bp_get_mem_read() -> int
 
+    # set a memory breakpoint on write
+bp_set_mem_write(addr:int)
+
     # get the memory breakpoint on write
 bp_get_mem_write() -> int
 ```
