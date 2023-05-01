@@ -1,3 +1,0 @@
-(function() {var implementors = {
-"pyscemu":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.67.0/core/panic/unwind_safe/trait.RefUnwindSafe.html\" title=\"trait core::panic::unwind_safe::RefUnwindSafe\">RefUnwindSafe</a> for <a class=\"struct\" href=\"pyscemu/struct.Emu.html\" title=\"struct pyscemu::Emu\">Emu</a>",1,["pyscemu::Emu"]]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

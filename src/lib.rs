@@ -29,12 +29,12 @@ impl Emu {
         self.emu.pos = 0;
     }
    
-    /// check if the emulator is in 64bits mode
+    /// check if the emulator is in 64bits mode.
     fn is_64bits(&self) -> PyResult<bool> {
         return Ok(self.emu.cfg.is_64bits);
     }
 
-    /// check if the emulator is in 32bits mode
+    /// check if the emulator is in 32bits mode.
     fn is_32bits(&self) -> PyResult<bool> {
         return Ok(!self.emu.cfg.is_64bits);
     }
@@ -127,6 +127,7 @@ impl Emu {
         self.emu.cfg.console_enabled = true;
     }
 
+    /// disable the console, to prevent to be spawned in some situations.
     fn disable_console(&mut self) {
         self.emu.cfg.console_enabled = false;
     }
@@ -265,8 +266,8 @@ impl Emu {
     }
 
     /// pop a 32bits value from the stack.
-    fn stack_pop32(&mut self, pop_instruction:bool) -> PyResult<u32> {
-        match self.emu.stack_pop32(pop_instruction) {
+    fn stack_pop32(&mut self) -> PyResult<u32> {
+        match self.emu.stack_pop32(false) {
             Some(v) => {
                 return Ok(v);
             },
@@ -277,8 +278,8 @@ impl Emu {
     }
 
     /// pop a 64bits value from the stack.
-    fn stack_pop64(&mut self, pop_instruction:bool) -> PyResult<u64> {
-        match self.emu.stack_pop64(pop_instruction) {
+    fn stack_pop64(&mut self) -> PyResult<u64> {
+        match self.emu.stack_pop64(false) {
             Some(v) => {
                 return Ok(v);
             },
@@ -289,13 +290,13 @@ impl Emu {
     }
 
     /// set rip register, if rip point to an api will be emulated.
-    fn set_rip(&mut self, addr:u64, is_branch:bool) {
-        self.emu.set_rip(addr, is_branch);
+    fn set_rip(&mut self, addr:u64) {
+        self.emu.set_rip(addr, false);
     }
 
     /// set eip register, if eip point to an api will be emulated.
-    fn set_eip(&mut self, addr:u64, is_branch:bool) {
-        self.emu.set_eip(addr, is_branch);
+    fn set_eip(&mut self, addr:u64) {
+        self.emu.set_eip(addr, false);
     }
 
     /// spawn an interactive console.
@@ -368,7 +369,7 @@ impl Emu {
         return Err(PyValueError::new_err("invalid register name"));
     }
 
-    /// set register value ie  set_reg('rax', 0x123)
+    /// set register value ie  set_reg('rax', 0x123), returns previous value.
     fn set_reg(&mut self, reg:&str, value:u64) -> PyResult<u64> {
         if self.emu.regs.is_reg(reg) {
             let prev = self.emu.regs.get_by_name(reg);
@@ -529,12 +530,12 @@ impl Emu {
         self.emu.maps.write_wide_string(to, from);
     }
 
-    /// write a python list of bytes to the emulator memory.
+    /// write a python list of int bytes to the emulator memory.
     pub fn write_buffer(&mut self, to:u64, from:&[u8]) {
         self.emu.maps.write_buffer(to, from);
     }
 
-    /// read a buffer from the emulator memory to a python list of bytes.
+    /// read a buffer from the emulator memory to a python list of int bytes.
     pub fn read_buffer(&mut self, from:u64, sz:usize) -> PyResult<Vec<u8>> {
         return Ok(self.emu.maps.read_buffer(from, sz));
     }
@@ -632,7 +633,7 @@ impl Emu {
     }
 
     /// search one occurence of a spaced hex bytes from a specific address, will return zero if it's not found.
-    pub fn search_spaced_bytes_from(&self, sbs:&str, saddr:u64) -> PyResult<u64> {
+    pub fn search_spaced_bytes_from(&self, saddr:u64, sbs:&str) -> PyResult<u64> {
         return Ok(self.emu.maps.search_spaced_bytes_from(sbs, saddr));
     }
 
