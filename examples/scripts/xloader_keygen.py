@@ -12,7 +12,7 @@ xloader_key1_keygen = 0x3DB687
 key_off = 1980
 prekey_off = 1096
 
-
+emu.set_verbose(3)
 #emu.spawn_console_at_pos(6)
 eax = emu.call32(xloader_key1_keygen, [buff])
 

@@ -6,6 +6,7 @@ pip install --upgrade pip
 pip3 install --upgrade pip
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 pip install pyscemu
+pip3 install pyscemu
 ```
 
 ## Mac Install

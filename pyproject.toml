@@ -14,3 +14,6 @@ classifiers = [
 
 [tool.maturin]
 features = ["pyo3/extension-module"]
+
+[metadata]
+description = "x86 32/64bits and systems emulation"
