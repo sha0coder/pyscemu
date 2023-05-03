@@ -324,7 +324,8 @@ impl Emu {
         return Ok(self.emu.step());
     }
 
-    /// start emulating the binary until reach the provided end_addr. Use run(0) for emulating forever.
+    /// Start emulating the binary until reach the provided end_addr. 
+    /// Use run(0) for emulating forever. or call32/call64 for calling a function.
     fn run(&mut self, end_addr:u64) {
         self.emu.run(end_addr);
     }

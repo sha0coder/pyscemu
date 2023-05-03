@@ -10,4 +10,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = "0.18.1"
-libscemu = "0.11.9"
+libscemu = "0.12.0"
+#libscemu = { path = "/home/sha0/src/libscemu/" }
