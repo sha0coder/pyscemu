@@ -326,12 +326,9 @@ impl Emu {
     }
 
     /// Start emulating the binary until reach the provided end_addr. 
-    /// Use run(0) for emulating forever. or call32/call64 for calling a function.
+    /// Use run() with no params for emulating forever. or call32/call64 for calling a function.
     fn run(&mut self, end_addr:Option<u64>) {
-        match end_addr {
-            Some(end_addr) => self.emu.run(end_addr),
-            None => self.emu.run(0),
-        }
+        self.emu.run(end_addr);
     }
 
     /// read the number of instructions emulated since now.
@@ -348,7 +345,7 @@ impl Emu {
         self.emu.stack_push32(ret_addr as u32);
         self.emu.regs.set_eip(address);
         //self.emu.set_eip(address, false);
-        self.emu.run(ret_addr);
+        self.emu.run(Some(ret_addr));
         return Ok(self.emu.regs.get_eax() as u32);
     }
 
@@ -360,7 +357,7 @@ impl Emu {
         let ret_addr = self.emu.regs.rip;
         //self.emu.stack_push64(ret_addr);
         self.emu.set_eip(address, false);
-        self.emu.run(ret_addr);
+        self.emu.run(Some(ret_addr));
         return Ok(self.emu.regs.rax);
     }
 

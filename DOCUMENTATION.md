@@ -402,7 +402,7 @@ run_until_return()
 step() -> bool
 
     # start emulating the binary until reach the provided end_addr. 
-    # Use run(0) for emulating forever.
+    # Use run() with no params for emulating forever.
 run(end_addr:int)
 
     # read the number of instructions emulated since now.
