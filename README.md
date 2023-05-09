@@ -226,7 +226,7 @@ other way to do the call:
 True
 >>> emu.stack_push32(ret_addr)
 True
->>> emu.run(ret_adr)  # point ret_addr to some mapped place and run until ret_address
+>>> emu.run(ret_addr)  # point ret_addr to some mapped place and run until ret_addr
 ```
 
 

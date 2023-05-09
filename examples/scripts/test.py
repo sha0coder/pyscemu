@@ -9,7 +9,7 @@ emu.enable_banzai_mode()
 danabot_init = 0x022EBBC0 
 
 
-emu.disable_ctrlc()
+emu.enable_ctrlc()
 
 
 '''
@@ -30,4 +30,6 @@ emu.set_reg('edx', priv_ptr)
 emu.set_reg('eax', 1)
 emu.set_reg('esi', 1)
 ret_addr = emu.set_reg('eip', danabot_init)
-emu.run(ret_addr)
+
+#emu.run(ret_addr)
+emu.run()

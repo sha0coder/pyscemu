@@ -301,6 +301,7 @@ impl Emu {
 
     /// spawn an interactive console.
     fn spawn_console(&mut self) {
+        self.emu.cfg.console_enabled = true;
         self.emu.spawn_console();
     }
 
@@ -326,8 +327,11 @@ impl Emu {
 
     /// Start emulating the binary until reach the provided end_addr. 
     /// Use run(0) for emulating forever. or call32/call64 for calling a function.
-    fn run(&mut self, end_addr:u64) {
-        self.emu.run(end_addr);
+    fn run(&mut self, end_addr:Option<u64>) {
+        match end_addr {
+            Some(end_addr) => self.emu.run(end_addr),
+            None => self.emu.run(0),
+        }
     }
 
     /// read the number of instructions emulated since now.
