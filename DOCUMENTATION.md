@@ -396,14 +396,14 @@ spawn_console()
 disassemble(addr:int, amount:int)
 
     # start emulating the binary after finding the first return.
-run_until_return()
+run_until_return() -> int
 
     # emulate a single step, this is slower than run(address) or run(0)
 step() -> bool
 
     # start emulating the binary until reach the provided end_addr. 
     # Use run() with no params for emulating forever.
-run(end_addr:int)
+run(end_addr:int) -> int
 
     # read the number of instructions emulated since now.
 get_position() -> int

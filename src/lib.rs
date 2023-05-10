@@ -316,8 +316,11 @@ impl Emu {
     }*/
 
     /// start emulating the binary after finding the first return.
-    fn run_until_return(&mut self) {
-        self.emu.run_until_ret();
+    fn run_until_return(&mut self) -> PyResult<u64>{
+        return match self.emu.run_until_ret() {
+            Ok(pc) => Ok(pc),
+            Err(e) => Err(PyValueError::new_err(e.message)),
+        };
     }
 
     /// emulate a single step, this is slower than run(address) or run(0)
@@ -327,8 +330,11 @@ impl Emu {
 
     /// Start emulating the binary until reach the provided end_addr. 
     /// Use run() with no params for emulating forever. or call32/call64 for calling a function.
-    fn run(&mut self, end_addr:Option<u64>) {
-        self.emu.run(end_addr);
+    fn run(&mut self, end_addr:Option<u64>) -> PyResult<u64> {
+        return match self.emu.run(end_addr) {
+            Ok(pc) => Ok(pc),
+            Err(e) => Err(PyValueError::new_err(e.message)),
+        };
     }
 
     /// read the number of instructions emulated since now.
@@ -337,28 +343,19 @@ impl Emu {
     }
 
     /// call a 32bits function, internally pushes params in reverse order.
-    fn call32(&mut self, address:u64, params:Vec<u32>) -> PyResult<u32> {
-        for i in (0..params.len()).rev() {
-            self.emu.stack_push32(params[i]);
-        }
-        let ret_addr = self.emu.regs.get_eip();
-        self.emu.stack_push32(ret_addr as u32);
-        self.emu.regs.set_eip(address);
-        //self.emu.set_eip(address, false);
-        self.emu.run(Some(ret_addr));
-        return Ok(self.emu.regs.get_eax() as u32);
+    fn call32(&mut self, address:u64, params:Vec<u64>) -> PyResult<u32> {
+        return match self.emu.call32(address, &params) {
+            Ok(pc) => Ok(pc),
+            Err(e) => Err(PyValueError::new_err(e.message)),
+        };
     }
 
     /// call a 64bits function, internally pushes params in reverse order.
     fn call64(&mut self, address:u64, params:Vec<u64>) -> PyResult<u64> {
-        for i in (0..params.len()).rev() {
-            self.emu.stack_push64(params[i]);
-        }
-        let ret_addr = self.emu.regs.rip;
-        //self.emu.stack_push64(ret_addr);
-        self.emu.set_eip(address, false);
-        self.emu.run(Some(ret_addr));
-        return Ok(self.emu.regs.rax);
+        return match self.emu.call64(address, &params) {
+            Ok(pc) => Ok(pc),
+            Err(e) => Err(PyValueError::new_err(e.message)),
+        };
     }
 
     // registers
