@@ -241,6 +241,11 @@ impl Emu {
         self.emu.load_code(filename);
     }
 
+    /// Load code from bytes
+    fn load_code_bytes(&mut self, bytes: &[u8]) {
+        self.emu.load_code_bytes(bytes);
+    }
+
     /// allocate a buffer on the emulated process address space.  
     fn alloc(&mut self, name:&str, size:u64) -> PyResult<u64> {
         return Ok(self.emu.alloc(name, size));

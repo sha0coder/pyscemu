@@ -398,7 +398,7 @@ checksum = "6a987beff54b60ffa6d51982e1aa1146bc42f19bd26be28b0586f252fccf5317"
 
 [[package]]
 name = "libscemu"
-version = "0.12.5"
+version = "0.12.6"
 dependencies = [
  "attohttpc",
  "atty",
@@ -686,7 +686,7 @@ dependencies = [
 
 [[package]]
 name = "pyscemu"
-version = "0.2.5"
+version = "0.2.6"
 dependencies = [
  "libscemu",
  "pyo3",

@@ -15,6 +15,8 @@ emu.load_maps(folder:str)
 
     # Load the binary to be emulated.
 emu.load_binary(filename:str)
+    # Load the bytes to be emulated.
+emu.load_code_bytes(bytes:bytearray)
 ```
 
 optionally is possible to change entry point and base address
