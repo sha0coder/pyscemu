@@ -1,6 +1,6 @@
 [package]
 name = "pyscemu"
-version = "0.2.8"
+version = "0.3.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,5 +10,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = "0.18.1"
-libscemu = "0.12.8"
+libscemu = "0.13.0"
 #libscemu = { path = "/home/sha0/src/libscemu/" }
