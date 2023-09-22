@@ -311,8 +311,8 @@ impl Emu {
     }
 
     /// disassemble an address.
-    fn disassemble(&mut self, addr:u64, amount:u32) {
-        self.emu.disassemble(addr, amount);
+    fn disassemble(&mut self, addr:u64, amount:u32) -> PyResult<String> {
+        return Ok(self.emu.disassemble(addr, amount));
     }
 
     /*

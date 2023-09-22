@@ -394,8 +394,8 @@ set_eip(addr:int)
     # spawn an interactive console.  
 spawn_console()
 
-    # disassemble an address.  
-disassemble(addr:int, amount:int)
+    # disassemble some instructions from an address.  
+disassemble(addr:int, amount:int) -> str
 
     # start emulating the binary after finding the first return.
 run_until_return() -> int
