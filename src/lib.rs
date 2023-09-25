@@ -295,13 +295,13 @@ impl Emu {
     }
 
     /// set rip register, if rip point to an api will be emulated.
-    fn set_rip(&mut self, addr:u64) {
-        self.emu.set_rip(addr, false);
+    fn set_rip(&mut self, addr:u64) -> PyResult<bool> {
+        return Ok(self.emu.set_rip(addr, false));
     }
 
     /// set eip register, if eip point to an api will be emulated.
-    fn set_eip(&mut self, addr:u64) {
-        self.emu.set_eip(addr, false);
+    fn set_eip(&mut self, addr:u64) -> PyResult<bool> {
+        return Ok(self.emu.set_eip(addr, false));
     }
 
     /// spawn an interactive console.
