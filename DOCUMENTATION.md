@@ -214,6 +214,11 @@ write_word(addr:int, value:int) -> bool
     # write a byte on memory.
 write_byte(addr:int, value:int) -> bool
 
+    # write an ascii string
+write_string(addr:int, s:str)
+
+    # write a wide
+
     # read 128bits big endian.
 read_128bits_be(addr:int) -> int
 
@@ -238,8 +243,8 @@ memset(addr:int, byte:int, amount:int)
     # get the size of a wide string.
 sizeof_wide(unicode_str_ptr:str) -> int
 
-    # write a python list of int bytes to the emulator memory.
-write_buffer(to:addr, from:list)
+    # write a python bytes() or b'' to an emulator memory address.
+write_buffer(to:addr, from:bytes)
 
     # read a buffer from the emulator memory to a python list of int bytes.
 read_buffer(from:int, sz:int) -> list
