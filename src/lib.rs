@@ -165,6 +165,7 @@ impl Emu {
         self.emu.cfg.inspect = false;
     }
 
+    /*
     /// give the binary the posibility of connecting remote hosts to get next stage, use it safelly.
     fn enable_endpoint_mode(&mut self) {
         self.emu.cfg.endpoint = true;
@@ -173,7 +174,7 @@ impl Emu {
     /// disable the endpoint mode.
     fn disable_endpoint_mode(&mut self) {
         self.emu.cfg.endpoint = false;
-    }
+    }*/
 
 
     /// change the default entry point.
