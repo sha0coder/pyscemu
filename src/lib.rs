@@ -102,6 +102,10 @@ impl Emu {
         self.emu.cfg.verbose = verbose;
     }
 
+    /// Set the base address of stack memory map
+    fn set_stack_base(&mut self, addr:u64) {
+        self.emu.cfg.stack_addr = addr;
+    }
 
     /// when the execution reached a specified amount of steps will spawn an interactive console.
     fn spawn_console_at_pos(&mut self, position:u64) {
