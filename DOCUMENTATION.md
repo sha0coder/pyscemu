@@ -129,6 +129,9 @@ enable_endpoint_mode()
     # disable the endpoint mode.
 disable_endpoint_mode()
 
+    # configure stack mapping address
+set_stack_base(addr:int)
+
     # change the default entry point.
 set_entry_point(addr:int)
 
