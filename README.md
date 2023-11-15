@@ -1,5 +1,8 @@
 # PYSCEMU
 
+## Gpt Assistant
+https://chat.openai.com/g/g-sfrh5tzEM-pyscemu-helper
+
 ## Install
 ```bash
 pip install --upgrade pip
