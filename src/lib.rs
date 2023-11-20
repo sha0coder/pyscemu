@@ -221,6 +221,11 @@ impl Emu {
         self.emu.cfg.skip_unimplemented = false;
     }
 
+    /// Add API to banzai.
+    fn banzai_add(&mut self, apiname:&str, nparams:i32) {
+        self.emu.banzai_add(apiname, nparams);
+    }
+
     /// enable the Control-C handling for spawning console.
     fn enable_ctrlc(&mut self) {
         self.emu.enable_ctrlc();
