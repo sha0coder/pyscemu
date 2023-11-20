@@ -156,6 +156,9 @@ enable_banzai_mode()
     # disable banzai mode.
 disable_banzai_mode()
 
+    # add unimplemented API to banzai.
+banzai_add(apiname:str, nparams:int) {
+
     # enable the Control-C handling for spawning console.
 enable_ctrlc()
 
