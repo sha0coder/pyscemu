@@ -554,6 +554,11 @@ impl Emu {
         return Ok(self.emu.maps.read_buffer(from, sz));
     }
 
+    /// write a python list of int bytes to the emulator memory.
+    pub fn write_bytes(&mut self, to:u64, from:&[u8]) {
+        self.emu.maps.write_buffer(to, from);
+    }
+
     /// print all the maps that match a substring of the keyword provided.
     pub fn print_maps_by_keyword(&self, kw:&str) {
         self.emu.maps.print_maps_keyword(kw);
@@ -781,36 +786,22 @@ impl Emu {
         return Ok(self.emu.bp.get_mem_write());
     }
 
-    // hooks
-
-    /// use a synchronous loop with step() instead of using the run_hook(hook) 
-    /// this method is experimental.
-    pub fn run_hook(&mut self, callback: PyObject) {
+    /// emulate until next winapi call
+    pub fn run_until_apicall(&mut self) -> u64 {
+        self.emu.skip_apicall = true;
         loop {
-            self.emu.step();
-
-            let gil = Python::acquire_gil();
-            let py = gil.python();
-
-
-            let args = (self.emu.regs.rip, &self.emu.out,);
-            match callback.call1(py, args) {
-                Ok(r) => {
-                    match r.extract::<bool>(py) {
-                        Ok(b) => {
-                            if b {
-                                continue;
-                            } else {
-                                break;
-                            }
-                        }
-                        Err(_) => break,
+            if !self.emu.step() {
+                match self.emu.its_apicall {
+                    Some(addr) => {
+                        self.emu.skip_apicall = false;
+                        return addr;
                     }
-                },
-                Err(_) => break,
+                    None => continue,
+                }
             }
         }
     }
+
 }
 
 
@@ -825,7 +816,6 @@ fn init32() -> PyResult<Emu> {
     emu.emu.cfg.is_64bits = false;
     emu.emu.cfg.console_enabled = false;
     emu.emu.cfg.verbose = 0;
-
 
     Ok(emu)
 }
