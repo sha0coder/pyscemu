@@ -3,7 +3,7 @@ import sys
 
 emu = pyscemu.init32()
 emu.load_maps('/home/sha0/src/scemu/maps32/')
-emu.load_binary('/home/sha0/samples/formbook/xloader/2022-10-05/unpacked.bin')
+emu.load_binary('mw/xl_unpacked.bin')
 
 buff = emu.alloc("struct_buff", 1024)
 try:
@@ -21,3 +21,5 @@ emu.set_verbose(3)
 ptr = emu.call32(xloader_dexor, [buff, key])
 
 emu.dump_n(buff, 100)
+
+

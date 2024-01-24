@@ -2,14 +2,14 @@ import pyscemu
 
 emu = pyscemu.init32()
 emu.load_maps('/home/sha0/src/scemu/maps32/')
-emu.load_binary('/home/sha0/samples/danabot/2023-04-03-MainModule/unpacked2/dbmm_unpacked.dll')
-emu.set_verbose(3)
+emu.load_binary('mw/dbmm_unpacked.dll')
+emu.set_verbose(0)
 emu.set_base_address(0x1E70000)
 emu.enable_banzai_mode()
 danabot_init = 0x022EBBC0 
 
 
-emu.enable_ctrlc()
+emu.disable_ctrlc()
 
 
 '''
@@ -30,6 +30,6 @@ emu.set_reg('edx', priv_ptr)
 emu.set_reg('eax', 1)
 emu.set_reg('esi', 1)
 ret_addr = emu.set_reg('eip', danabot_init)
+emu.run(ret_addr)
 
-#emu.run(ret_addr)
-emu.run()
+
