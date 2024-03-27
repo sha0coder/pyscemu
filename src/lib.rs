@@ -93,6 +93,16 @@ impl Emu {
         self.emu.cfg.reg_names.clear();
     }
 
+    /// address to api name
+    fn api_addr_to_name(&mut self, addr:u64) -> String {
+        return self.emu.api_addr_to_name(addr);
+    }
+
+    /// api name to address
+    fn api_name_to_addr(&mut self, name:&str) -> u64 {
+        return self.emu.api_name_to_addr(name);
+    }
+
     /// set the verbosity between 0 and 3.
     ///     0: only show api calls.
     ///     1: show api calls and some logs.
