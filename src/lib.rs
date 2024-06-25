@@ -702,9 +702,9 @@ impl Emu {
         return Ok(self.emu.maps.size());
     }
 
-    /// show if there are memory blocks overlapping eachother.
+    /// show if there are memory blocks overlaping eachother.
     pub fn memory_overlaps(&self, addr:u64, sz:u64) -> PyResult<bool> {
-        return Ok(self.emu.maps.overlapps(addr, sz));
+        return Ok(self.emu.maps.overlaps(addr, sz));
     }
 
     /// show all the memory blocks allocated during the emulation.
