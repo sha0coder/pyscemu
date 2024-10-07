@@ -165,6 +165,9 @@ enable_ctrlc()
     # disable the Control-C handling.
 disable_ctrlc()
 
+    # update base of an ldr entry
+update_ldr_entry_base(modname:str, base:int)
+
 ```
 
 

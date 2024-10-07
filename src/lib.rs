@@ -39,6 +39,11 @@ impl Emu {
         return Ok(!self.emu.cfg.is_64bits);
     }
 
+    /// change base address on ldr entry of a module
+    fn update_ldr_entry_base(&mut self, libname: &str, base: u64) {
+        self.emu.update_ldr_entry_base(libname, base);
+    }
+
     /// Set 64bits mode, it's necessary to load the 64bits maps with load_maps() method.
     /// Or better can use: emu = pyscemu.init64()
     fn set_64bits(&mut self) {
