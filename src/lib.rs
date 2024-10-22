@@ -4,7 +4,6 @@ use libscemu::emu64;
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
 
-
 #[pyclass]
 pub struct Emu {
     emu: libscemu::emu::Emu,
@@ -810,31 +809,8 @@ impl Emu {
                     Some(addr) => {
                         self.emu.skip_apicall = false;
                         let name = self.emu.api_addr_to_name(addr);
+                        self.emu.regs.rip += self.emu.last_instruction_size as u64;
                         return Ok((addr,name));
-                    }
-                    None => continue,
-                }
-            }
-        }
-    }
-
-    /// emulate until next winapi call
-    pub fn run_until_winapi(&mut self, winapi:&str) {
-        let target = self.emu.api_name_to_addr(winapi);
-        if target == 0 {
-            panic!("winapi '{}' not found", winapi);
-        }
-        self.emu.skip_apicall = true;
-        loop {
-            if !self.emu.step() {
-                match self.emu.its_apicall {
-                    Some(addr) => {
-                        self.emu.skip_apicall = false;
-                        if addr == target { 
-                            return;
-                        }
-                        self.emu.step();
-                        self.emu.skip_apicall = true;
                     }
                     None => continue,
                 }
@@ -880,7 +856,4 @@ fn pyscemu(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(init64, m)?)?;
     Ok(())
 }
-
-
-
 

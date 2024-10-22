@@ -441,17 +441,18 @@ run_until_apicall() -> [addr, api_name]
 
 ### hooks 
 
-libscemu provide multipe hooks, but on the python module hooking is experimental for now.
+libscemu provide multipe hooks, but not pyscemu.
+one opion is synchronous way:
 
 ```python
-
-def myhook(eip, mnemonic):
-    print(f'{hex(eip)} {mnemonic}')
-    if eip >= 0x11223344:
-        return False  # stop emulation
-    return True
-
-
-emu.run_hook(myhook)
+emu.set_reg('rip', comm_protocol)
+while True:
+    addr, name = emu.run_until_apicall()
+    if name == 'getusernamea':
+        GetUserNameA()
+    elif name =='recv':
+        recv()
+    else:
+        print(f'unhandled call {name}')
 ```
 
