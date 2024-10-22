@@ -802,15 +802,15 @@ impl Emu {
     }
 
     /// emulate until next winapi call
-    pub fn run_until_apicall(&mut self) -> (u64, String) {
+    pub fn run_until_apicall(&mut self) -> PyResult<(u64,String)> {
         self.emu.skip_apicall = true;
         loop {
             if !self.emu.step() {
                 match self.emu.its_apicall {
                     Some(addr) => {
                         self.emu.skip_apicall = false;
-                        name = self.emu.addr_to_api_name(addr);
-                        return addr, name;
+                        let name = self.emu.api_addr_to_name(addr);
+                        return Ok((addr,name));
                     }
                     None => continue,
                 }
