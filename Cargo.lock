@@ -274,9 +274,7 @@ checksum = "6a987beff54b60ffa6d51982e1aa1146bc42f19bd26be28b0586f252fccf5317"
 
 [[package]]
 name = "libscemu"
-version = "0.17.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "84dedb3b1c72cdd4d886fd0f4dcfd94d7faa714a3438de1cfea32c8c1787cb54"
+version = "0.18.0"
 dependencies = [
  "atty",
  "chrono",
@@ -476,7 +474,7 @@ dependencies = [
 
 [[package]]
 name = "pyscemu"
-version = "0.7.9"
+version = "0.8.0"
 dependencies = [
  "libscemu",
  "pyo3",

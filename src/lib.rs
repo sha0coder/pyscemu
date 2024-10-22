@@ -802,14 +802,15 @@ impl Emu {
     }
 
     /// emulate until next winapi call
-    pub fn run_until_apicall(&mut self) -> u64 {
+    pub fn run_until_apicall(&mut self) -> (u64, String) {
         self.emu.skip_apicall = true;
         loop {
             if !self.emu.step() {
                 match self.emu.its_apicall {
                     Some(addr) => {
                         self.emu.skip_apicall = false;
-                        return addr;
+                        name = self.emu.addr_to_api_name(addr);
+                        return addr, name;
                     }
                     None => continue,
                 }
@@ -817,6 +818,29 @@ impl Emu {
         }
     }
 
+    /// emulate until next winapi call
+    pub fn run_until_winapi(&mut self, winapi:&str) {
+        let target = self.emu.api_name_to_addr(winapi);
+        if target == 0 {
+            panic!("winapi '{}' not found", winapi);
+        }
+        self.emu.skip_apicall = true;
+        loop {
+            if !self.emu.step() {
+                match self.emu.its_apicall {
+                    Some(addr) => {
+                        self.emu.skip_apicall = false;
+                        if addr == target { 
+                            return;
+                        }
+                        self.emu.step();
+                        self.emu.skip_apicall = true;
+                    }
+                    None => continue,
+                }
+            }
+        }
+    }
 }
 
 

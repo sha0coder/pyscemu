@@ -429,6 +429,14 @@ call32(addr:int, params:list) -> int
 
     # call a 64bits function, internally pushes params in reverse order.
 call64(addr:int, params:list) -> int
+
+    # emulate until a specific winapi is called.
+run_until_winapi(winapi_name:str)
+
+    # emulate until any winapi is called.
+run_until_apicall() -> [addr, api_name]
+
+
 ```
 
 ### hooks 
