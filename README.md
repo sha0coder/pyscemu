@@ -1,6 +1,15 @@
 # PYSCEMU
 
+## Examples
+
+https://github.com/sha0coder/pyscemu/tree/main/examples
+
+## Documentation
+
+https://github.com/sha0coder/pyscemu/blob/main/DOCUMENTATION.md
+
 ## Gpt Assistant
+
 https://chat.openai.com/g/g-sfrh5tzEM-pyscemu-helper
 
 ## Install
@@ -27,13 +36,6 @@ releases:
 https://github.com/sha0coder/scemu/releases/download/maps/maps32.zip
 https://github.com/sha0coder/scemu/releases/download/maps/maps64.zip
 
-## Examples
-
-https://github.com/sha0coder/pyscemu/tree/main/examples
-
-## Documentation
-
-https://github.com/sha0coder/pyscemu/blob/main/DOCUMENTATION.md
 
 ## Usage
 
