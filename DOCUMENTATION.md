@@ -445,6 +445,24 @@ libscemu provide multipe hooks, but not pyscemu.
 one opion is synchronous way:
 
 ```python
+def GetUserNameA():
+    retaddr = emu.stack_pop64()
+    print('GetUserNameA')
+    emu.write_string(emu.get_reg('rcx'), 'baremetal\x00')
+    emu.write_qword(emu.get_reg('rdx'), 9)
+    emu.set_reg('rax', emu.get_reg('rcx'))
+
+def recv():
+    retaddr = emu.stack_pop64()
+    rip = emu.get_reg('rip')
+    rcx = emu.get_reg('rcx')
+    rdx = emu.get_reg('rdx')
+    r8 = emu.get_reg('r8')
+    print(f'{rip:x}: recv({rcx}, {rdx:x}, {r8})')
+    emu.write_dword(rdx, 3)
+    emu.set_reg('rax', 4)
+
+
 emu.set_reg('rip', comm_protocol)
 while True:
     addr, name = emu.run_until_apicall()
@@ -453,6 +471,6 @@ while True:
     elif name =='recv':
         recv()
     else:
-        print(f'unhandled call {name}')
+        emu.handle_winapi(addr)
 ```
 

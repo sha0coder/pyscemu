@@ -800,6 +800,11 @@ impl Emu {
         return Ok(self.emu.bp.get_mem_write());
     }
 
+    /// handle winapi address
+    pub fn handle_winapi(&mut self, addr: u64) {
+        self.emu.handle_winapi(addr);
+    }
+
     /// emulate until next winapi call
     pub fn run_until_apicall(&mut self) -> PyResult<(u64,String)> {
         self.emu.skip_apicall = true;
