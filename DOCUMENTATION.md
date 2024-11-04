@@ -227,6 +227,7 @@ write_byte(addr:int, value:int) -> bool
 write_string(addr:int, s:str)
 
     # write a wide
+write_wide_string(addr:int, s:str)
 
     # read 128bits big endian.
 read_128bits_be(addr:int) -> int
