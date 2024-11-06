@@ -97,6 +97,15 @@ impl Emu {
         self.emu.cfg.reg_names.clear();
     }
 
+    /// dump module iat
+    fn dump_module_iat(&mut self, libname: &str) {
+        if self.cfg.is_64bits {
+            winapi64::kernel32::dump_module_iat(self, &libname.to_lower());
+        } else {
+            winapi32::kernel32::dump_module_iat(self, &libname.to_lower());
+        }
+    }
+
     /// address to api name
     fn api_addr_to_name(&mut self, addr:u64) -> String {
         return self.emu.api_addr_to_name(addr);
