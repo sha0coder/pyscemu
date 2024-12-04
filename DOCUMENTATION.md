@@ -168,6 +168,9 @@ disable_ctrlc()
     # update base of an ldr entry
 update_ldr_entry_base(modname:str, base:int)
 
+    # address to api name, based on LDR lookup
+api_addr_to_name(addr:int) -> str
+
 ```
 
 
