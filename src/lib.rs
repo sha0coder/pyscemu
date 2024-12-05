@@ -97,6 +97,12 @@ impl Emu {
         self.emu.cfg.reg_names.clear();
     }
 
+    /// inspect sequence
+    fn inspect_seq(&mut self, s:&str) {
+        self.emu.cfg.inspect = true;
+        self.emu.cfg.inspect_seq = s.to_string();
+    }
+
     /// address to api name
     fn api_addr_to_name(&mut self, addr:u64) -> String {
         return self.emu.api_addr_to_name(addr);
@@ -133,6 +139,7 @@ impl Emu {
     fn spawn_console_at_addr(&mut self, addr:u64) {
         self.emu.cfg.console2 = true;
         self.emu.cfg.console_addr = addr;
+        self.emu.cfg.console_enabled = true;
     }
 
     /// disable the console spawning.
