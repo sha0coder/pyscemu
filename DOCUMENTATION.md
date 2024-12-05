@@ -83,6 +83,10 @@ enable_trace_reg(regs:list)
     # disable the multi-register tracer.
 disable_trace_reg()
 
+
+    # inspect sequence like: inspect_seq('dword ptr [eax + 0x3c]')
+    inspect_seq(seq:str)
+
     # set the verbosity between 0 and 3.
     #     0: only show api calls.
     #     1: show api calls and some logs.
