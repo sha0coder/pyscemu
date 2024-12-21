@@ -85,7 +85,7 @@ disable_trace_reg()
 
 
     # inspect sequence like: inspect_seq('dword ptr [eax + 0x3c]')
-    inspect_seq(seq:str)
+inspect_seq(seq:str)
 
     # set the verbosity between 0 and 3.
     #     0: only show api calls.
@@ -215,7 +215,13 @@ set_xmm(reg:str, value:int) -> int
     # allocate a buffer on the emulated process address space. It returns an address.
 alloc(map_name:str, size:int) -> int
 
-    # load an aditional blob to the memory layout.
+    # allocate a buffer on the emulated process at specific space, check first to avoid collisions.
+alloc_at(map_name:str, addr:int, size:int)
+
+    # Link DLL library
+link_library(filepath:str) -> int {
+
+    # load an aditional blob to the memory layout, check first to avoid collisions.
 load_map(name:str, filename:str, base_addr:int)
 
     # write a little endian qword on memory.

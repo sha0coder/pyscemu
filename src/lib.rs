@@ -282,6 +282,23 @@ impl Emu {
         return Ok(self.emu.alloc(name, size));
     }
 
+    /// allocate at specific address
+    fn alloc_at(&mut self, name:&str, addr:u64, size:u64) {
+        self.emu.maps.create_map(name, addr, size).expect("pyscemu alloc_at out of memory");
+    }
+
+    /// load an aditional blob to the memory layout.
+    fn load_map(&mut self,  name:&str, filename:&str, base_addr:u64) {
+        let map = self.emu.maps.create_map(name, base_addr, 1).expect("pyscemu load_map out of memory");
+        map.load(filename);
+    }
+
+
+    /// link library
+    fn link_library(&mut self, filepath:&str) -> PyResult<u64> {
+        Ok(self.emu.link_library(filepath))
+    }
+
 
     /// push a 32bits value to the stack.
     fn stack_push32(&mut self, value:u32) -> PyResult<bool> {
@@ -440,13 +457,6 @@ impl Emu {
         self.emu.maps.create_map(name);
     }*/
 
-    /// load an aditional blob to the memory layout.
-    fn load_map(&mut self,  name:&str, filename:&str, base_addr:u64) {
-        //TODO: check if collision
-        let map = self.emu.maps.create_map(name);
-        map.set_base(base_addr);
-        map.load(filename);
-    }
 
     /// write a little endian qword on memory.
     fn write_qword(&mut self, addr:u64, value:u64) -> PyResult<bool> {
