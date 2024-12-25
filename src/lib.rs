@@ -1,5 +1,7 @@
 use libscemu::emu32;
 use libscemu::emu64;
+use env_logger::Env;
+use std::io::Write as _;
 
 use pyo3::prelude::*;
 use pyo3::exceptions::PyValueError;
@@ -264,7 +266,7 @@ impl Emu {
     /// The maps can be downloaded from the https://github.com/sha0coder/scemu
     fn load_maps(&mut self, folder:&str) {
         self.emu.cfg.maps_folder = folder.to_string();
-        self.emu.init();
+        self.emu.init(false, false);
     }
 
     /// Load the binary to be emulated.
@@ -874,6 +876,15 @@ fn init64() -> PyResult<Emu> {
 
 #[pymodule]
 fn pyscemu(_py: Python, m: &PyModule) -> PyResult<()> {
+    env_logger::Builder::from_env(Env::default().default_filter_or("info"))
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "{}",
+                record.args()
+            )
+        })
+        .init();
     m.add_function(wrap_pyfunction!(init32, m)?)?;
     m.add_function(wrap_pyfunction!(init64, m)?)?;
     Ok(())
