@@ -1,5 +1,8 @@
 # PYSCEMU
 
+This repo has been archived, now libscemu, pyscemu and scemu become 1 repo:
+https://github.com/sha0coder/mwemu
+
 ## Examples
 
 https://github.com/sha0coder/pyscemu/tree/main/examples
